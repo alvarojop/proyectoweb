@@ -29,7 +29,7 @@ class Factura extends React.Component {
           <PanelGroup accordion id="facturas">
             {facturas.map((factura, index) => (
               <Panel eventKey={index} key={index}>
-                <Panel.Heading>
+                <Panel.Heading> 
                   <Panel.Title className="title" toggle>{factura.serie}</Panel.Title>
                   <Panel.Title className="title" toggle>{factura.fecha}</Panel.Title>
                   <Panel.Title className="title" toggle>{factura.nit}</Panel.Title>
