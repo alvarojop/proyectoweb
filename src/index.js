@@ -30,11 +30,7 @@ class Factura extends React.Component {
             {facturas.map((factura, index) => (
               <Panel eventKey={index} key={index}>
                 <Panel.Heading> 
-                  <Panel.Title className="title" toggle>{factura.serie}</Panel.Title>
-                  <Panel.Title className="title" toggle>{factura.fecha}</Panel.Title>
                   <Panel.Title className="title" toggle>{factura.nit}</Panel.Title>
-                  <Panel.Title className="title" toggle>{factura.nombre}</Panel.Title>
-                  <Panel.Title className="title" toggle>{factura.anulada}</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body collapsible>
                   <ListGroup>
