@@ -38,11 +38,11 @@ class Factura extends React.Component {
                 </Panel.Heading>
                 <Panel.Body collapsible>
                   <ListGroup>
-                    <ListGroupItem key={index}>{recipe.serie}</ListGroupItem>
-                    <ListGroupItem key={index}>{recipe.fecha}</ListGroupItem>
-                    <ListGroupItem key={index}>{recipe.nit}</ListGroupItem>
-                    <ListGroupItem key={index}>{recipe.nombre}</ListGroupItem>
-                    <ListGroupItem key={index}>{recipe.anulada}</ListGroupItem>
+                    <ListGroupItem key={index}>{factura.serie}</ListGroupItem>
+                    <ListGroupItem key={index}>{factura.fecha}</ListGroupItem>
+                    <ListGroupItem key={index}>{factura.nit}</ListGroupItem>
+                    <ListGroupItem key={index}>{factura.nombre}</ListGroupItem>
+                    <ListGroupItem key={index}>{factura.anulada}</ListGroupItem>
                   </ListGroup>
                   <ButtonToolbar>
                     <Button bsStyle="info">Detalle</Button>
