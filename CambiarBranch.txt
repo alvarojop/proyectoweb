@@ -1,0 +1,3 @@
+git branch -d <nombre brach> (para eliminar branch local, si ya existe)
+git branch -a (para ver todas las branch, locales y remotas)
+git checkout --track <nombre de branch remota> (ejemplo: origin/fase2)
