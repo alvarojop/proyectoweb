@@ -1,3 +1,9 @@
 git branch -d <nombre brach> (para eliminar branch local, si ya existe)
 git branch -a (para ver todas las branch, locales y remotas)
 git checkout --track <nombre de branch remota> (ejemplo: origin/fase2)
+
+git status (para ver en que branch esta apuntando)
+
+git add . (para agregar los archivos que cambiaron)
+git commit -m "<comentario>" (para hacer commit)
+git push -u origin <nombre de branch> (para hacer push)
