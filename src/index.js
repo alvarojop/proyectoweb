@@ -29,11 +29,12 @@ class Factura extends React.Component {
     this.showEditModal = this.showEditModal.bind(this);
     this.addFactura = this.addFactura.bind(this);
     this.editFactura = this.editFactura.bind(this);
+    this.deleteFactura = this.deleteFactura.bind(this);
   }
   showAddModal() {//show the new factura modal
     this.setState({ showAdd: !this.state.showAdd });
   }
-  showEditModal(index) {//show the edit recipe modal
+  showEditModal(index) {//show the edit factura modal
     this.setState({showEdit: !this.state.showEdit, currentlyEditing: index});
   }
   addFactura(factura) {//create a new factura
@@ -47,6 +48,11 @@ class Factura extends React.Component {
     facturas[currentlyEditing] = {serie: newSerie, numero: newNumero, fecha: newFecha, nit: newNit, nombre: newNombre, anulada: newAnulada};
     this.setState({facturas: facturas});
     this.showEditModal(currentlyEditing);
+  }
+  deleteFactura(index) {//delete an existing factura
+    let facturas = this.state.facturas.slice();
+    facturas.splice(index, 1);
+    this.setState({facturas: facturas, currentlyEditing: 0});
   }
   render() {
     const facturas = this.state.facturas;
@@ -70,7 +76,7 @@ class Factura extends React.Component {
                 </ListGroup>
                 <ButtonToolbar>
                   <Button bsStyle="warning" onClick={() => {this.showEditModal(index)}}>Editar</Button>
-                  <Button bsStyle="danger">Borrar</Button>
+                  <Button bsStyle="danger" onClick={() => {this.deleteFactura(index)}}>Borrar</Button>
                 </ButtonToolbar>
               </Panel.Body>
               <EditFactura onShow={this.state.showEdit} onEdit={this.editFactura} onEditModal={() => {this.showEditModal(this.state.currentlyEditing)}} currentlyEditing={this.state.currentlyEditing} factura={facturas[this.state.currentlyEditing]} />
