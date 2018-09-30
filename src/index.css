@@ -9,11 +9,10 @@ h1, li, .title {
 }
 
 h1, li {
-  text-align: center;
+  text-align: left;
 }
 
 .title {
-  background-color: #D8BFD8;
   font-size: 20px;
 }
 

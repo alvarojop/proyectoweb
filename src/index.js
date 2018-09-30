@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { PanelGroup, Panel, Button, ButtonToolbar, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { AddFactura } from './components/addfactura';
+import { EditFactura } from './components/editfactura';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -20,19 +21,32 @@ class Factura extends React.Component {
         { serie: "A", numero: "5", fecha: "08/06/2018", nit: "7582458-6", nombre: "Yoshi Tannamuri", anulada: "No" },
         { serie: "A", numero: "6", fecha: "07/08/2018", nit: "2563452-1", nombre: "Giovanni Rovelli", anulada: "No" }
       ],
-      showAdd: false
+      showAdd: false,
+      showEdit: false,
+      currentlyEditing: 0
     };
     this.showAddModal = this.showAddModal.bind(this);
+    this.showEditModal = this.showEditModal.bind(this);
     this.addFactura = this.addFactura.bind(this);
+    this.editFactura = this.editFactura.bind(this);
   }
   showAddModal() {//show the new factura modal
     this.setState({ showAdd: !this.state.showAdd });
+  }
+  showEditModal(index) {//show the edit recipe modal
+    this.setState({showEdit: !this.state.showEdit, currentlyEditing: index});
   }
   addFactura(factura) {//create a new factura
     let facturas = this.state.facturas;
     facturas.push(factura);
     this.setState({ facturas: facturas });
     this.showAddModal();
+  }
+  editFactura(newSerie, newNumero, newFecha, newNit, newNombre, newAnulada, currentlyEditing) {//edit an existing factura
+    let facturas = this.state.facturas;
+    facturas[currentlyEditing] = {serie: newSerie, numero: newNumero, fecha: newFecha, nit: newNit, nombre: newNombre, anulada: newAnulada};
+    this.setState({facturas: facturas});
+    this.showEditModal(currentlyEditing);
   }
   render() {
     const facturas = this.state.facturas;
@@ -55,11 +69,11 @@ class Factura extends React.Component {
                   <ListGroupItem >Anulada: {factura.anulada}</ListGroupItem>
                 </ListGroup>
                 <ButtonToolbar>
-                  <Button bsStyle="info">Detalle</Button>
-                  <Button bsStyle="warning">Editar</Button>
+                  <Button bsStyle="warning" onClick={() => {this.showEditModal(index)}}>Editar</Button>
                   <Button bsStyle="danger">Borrar</Button>
                 </ButtonToolbar>
               </Panel.Body>
+              <EditFactura onShow={this.state.showEdit} onEdit={this.editFactura} onEditModal={() => {this.showEditModal(this.state.currentlyEditing)}} currentlyEditing={this.state.currentlyEditing} factura={facturas[this.state.currentlyEditing]} />
             </Panel>
           ))}
         </PanelGroup>

@@ -33,7 +33,7 @@ export class AddFactura extends React.Component {
   handleFacturaAnuladaChange(e) {//change the anulada to reflect user input
     this.setState({anulada: e.target.value});
   }
-  handleSubmit(e) {//get the recipe data, manipulate it and call the function for creating a new recipe
+  handleSubmit(e) {//get the recipe data, manipulate it and call the function for creating a new factura
     e.preventDefault();
     const onAdd = this.props.onAdd;
     var newSerie = this.state.serie;
