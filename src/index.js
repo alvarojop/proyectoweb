@@ -5,22 +5,13 @@ import { PanelGroup, Panel, Button, ButtonToolbar, ListGroup, ListGroupItem } fr
 import { AddFactura } from './components/addfactura';
 import { EditFactura } from './components/editfactura';
 import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 //create the main class for displaying the recipes
 class Factura extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      facturas: [
-        { serie: "A", numero: "1", fecha: "01/01/2018", nit: "7654321-1", nombre: "Maria Anders", anulada: "No" },
-        { serie: "A", numero: "2", fecha: "05/01/2018", nit: "7572413-8", nombre: "Francisco Chang", anulada: "Si" },
-        { serie: "A", numero: "3", fecha: "02/02/2018", nit: "2035684-9", nombre: "Roland Mendel", anulada: "No" },
-        { serie: "A", numero: "4", fecha: "27/02/2018", nit: "5256585-4", nombre: "Helen Bennett", anulada: "No" },
-        { serie: "A", numero: "5", fecha: "08/06/2018", nit: "7582458-6", nombre: "Yoshi Tannamuri", anulada: "No" },
-        { serie: "A", numero: "6", fecha: "07/08/2018", nit: "2563452-1", nombre: "Giovanni Rovelli", anulada: "No" }
-      ],
+      facturas: [],
       showAdd: false,
       showEdit: false,
       currentlyEditing: 0
@@ -31,6 +22,17 @@ class Factura extends React.Component {
     this.editFactura = this.editFactura.bind(this);
     this.deleteFactura = this.deleteFactura.bind(this);
   }
+  componentDidMount() {//load the local storage data after the component renders
+    var facturas = (typeof localStorage["facturas"] !== "undefined") ? JSON.parse(localStorage.getItem("facturas")) : [
+      { serie: "A", numero: "1", fecha: "01/01/2018", nit: "7654321-1", nombre: "Maria Anders", anulada: "No" },
+      { serie: "A", numero: "2", fecha: "05/01/2018", nit: "7572413-8", nombre: "Francisco Chang", anulada: "Si" },
+      { serie: "A", numero: "3", fecha: "02/02/2018", nit: "2035684-9", nombre: "Roland Mendel", anulada: "No" },
+      { serie: "A", numero: "4", fecha: "27/02/2018", nit: "5256585-4", nombre: "Helen Bennett", anulada: "No" },
+      { serie: "A", numero: "5", fecha: "08/06/2018", nit: "7582458-6", nombre: "Yoshi Tannamuri", anulada: "No" },
+      { serie: "A", numero: "6", fecha: "07/08/2018", nit: "2563452-1", nombre: "Giovanni Rovelli", anulada: "No" }
+    ];
+    this.setState({facturas: facturas});
+  }
   showAddModal() {//show the new factura modal
     this.setState({ showAdd: !this.state.showAdd });
   }
@@ -40,18 +42,21 @@ class Factura extends React.Component {
   addFactura(factura) {//create a new factura
     let facturas = this.state.facturas;
     facturas.push(factura);
+    localStorage.setItem('facturas', JSON.stringify(facturas));
     this.setState({ facturas: facturas });
     this.showAddModal();
   }
   editFactura(newSerie, newNumero, newFecha, newNit, newNombre, newAnulada, currentlyEditing) {//edit an existing factura
     let facturas = this.state.facturas;
     facturas[currentlyEditing] = {serie: newSerie, numero: newNumero, fecha: newFecha, nit: newNit, nombre: newNombre, anulada: newAnulada};
+    localStorage.setItem('facturas', JSON.stringify(facturas));
     this.setState({facturas: facturas});
     this.showEditModal(currentlyEditing);
   }
   deleteFactura(index) {//delete an existing factura
     let facturas = this.state.facturas.slice();
     facturas.splice(index, 1);
+    localStorage.setItem('facturas', JSON.stringify(facturas));
     this.setState({facturas: facturas, currentlyEditing: 0});
   }
   render() {
